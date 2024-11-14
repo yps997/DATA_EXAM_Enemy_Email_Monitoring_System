@@ -1,6 +1,9 @@
 from kafka import KafkaConsumer, KafkaProducer
 import json
 
+from database.mongo import *
+from .database import*
+
 from services.filter_message import *
 
 
@@ -33,7 +36,7 @@ class ProducerConsumer:
     def process_message(self, message):
         try:
             message_data = message.value
-            ###להוסיף שליחת הודעה למונגו
+            collection.insert_one(message_data)
             if filtered_hostage_word(message_data):
                 self.producer.send('message_hostage', value=message_data)
                 print(f"hostage message sending: {message_data}")
