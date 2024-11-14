@@ -33,7 +33,7 @@ class ProducerConsumer:
         try:
             message_data = message.value
             if self.filtered_hostage_word(message_data):
-                self.producer.send('hostages_alerts', value=message_data)
+                self.producer.send('message_hostage', value=message_data)
                 print(f"hostage message sending: {message_data}")
 
             if self.filtered_explosive_word(message_data):
