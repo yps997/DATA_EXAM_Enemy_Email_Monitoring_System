@@ -2,7 +2,6 @@ from kafka import KafkaConsumer, KafkaProducer
 import json
 
 from database.mongo import *
-from .database import*
 
 from services.filter_message import *
 
