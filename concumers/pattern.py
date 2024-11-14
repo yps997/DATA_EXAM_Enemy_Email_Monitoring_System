@@ -1,4 +1,4 @@
-from database.posrtgreSql_connection import Base
+from database.posrtgreSql import Base
 from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import UUID
