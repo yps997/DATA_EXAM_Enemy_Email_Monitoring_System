@@ -1,6 +1,8 @@
 from kafka import KafkaConsumer, KafkaProducer
 import json
 
+from services.filter_message import *
+
 
 class ProducerConsumer:
     def __init__(self):
@@ -18,25 +20,25 @@ class ProducerConsumer:
             value_serializer=lambda x: json.dumps(x).encode('utf-8')
         )
 
-    def filtered_hostage_word(self, message_data):
-        keywords = ['hostage']
-        message_text = str(message_data).lower()
-        return any(keyword in message_text for keyword in keywords)
-
-    def filtered_explosive_word(self, message_data):
-        keywords = ['explosive']
-        message_text = str(message_data).lower()
-        return any(keyword in message_text for keyword in keywords)
+    # def filtered_hostage_word(self, message_data):
+    #     keywords = ['hostage']
+    #     message_text = str(message_data).lower()
+    #     return any(keyword in message_text for keyword in keywords)
+    #
+    # def filtered_explosive_word(self, message_data):
+    #     keywords = ['explosive']
+    #     message_text = str(message_data).lower()
+    #     return any(keyword in message_text for keyword in keywords)
 
     def process_message(self, message):
-        ###להוסיף שליחת הודעה למונגו
         try:
             message_data = message.value
-            if self.filtered_hostage_word(message_data):
+            ###להוסיף שליחת הודעה למונגו
+            if filtered_hostage_word(message_data):
                 self.producer.send('message_hostage', value=message_data)
                 print(f"hostage message sending: {message_data}")
 
-            if self.filtered_explosive_word(message_data):
+            if filtered_explosive_word(message_data):
                 self.producer.send('messages_explosive', value=message_data)
                 print(f"explosive message sending: {message_data}")
 
